@@ -1,5 +1,10 @@
 #!/bin/bash
 
+## Variables
+host=`hostname -I | awk '{print $1}'`
+IP="http://$host"
+PORT=8080
+
 echo "# Getting Node source"
 cd ~
 curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
@@ -25,15 +30,20 @@ cd app
 echo "# Install npm packages"
 npm install
 
-echo "# Setting Host"
-host=`hostname -I | awk '{print $1}'`
-IP="http://$host"
-PORT=8080
-
+# Installing a Process Manager to keep node alive in the background
 echo "# Installing PM2"
 sudo npm install pm2@latest -g
 
+# Commenting exit on rc.local so we can set the iptables prerouting
+echo "# Commenting exit on rc.local"
+sudo sed -i '14 s/^/#/ ' /etc/rc.local  
+
+# Setting ip tables to redirect from port $PORT to port 80
+echo "# Setting port $PORT to port 80"
+sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port $PORT
+
+# Updating /etc/rc.local to add the iptables change
+echo "iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port $PORT" >> /etc/rc.local
+
 echo "# Running node app"
 pm2 start server.js
-
-echo "Host $IP:$PORT"
