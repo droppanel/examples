@@ -29,11 +29,11 @@ npm install pm2@latest -g
 
 # Setting ip tables to redirect from port $PORT to port 80
 echo "# Setting port $PORT to port 80"
-sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
-sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port $PORT
+iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
+iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port $PORT
 
 # Updating iptables changes
-sudo iptables-save > /etc/sysconfig/iptables
+iptables-save > /etc/sysconfig/iptables
 
 echo "# Running node app"
 pm2 start server.js
