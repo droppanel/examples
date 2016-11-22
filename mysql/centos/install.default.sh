@@ -20,8 +20,8 @@ database_password='CHANGE_ME'
 ###################################
 ## INSTALL MYSQL FROM MySQL REPO ##
 ###################################
+echo "installing mysql"
 yum clean all
-https://downloads.mysql.com/archives/get/file/mysql-5.7.15-1.el7.x86_64.rpm-bundle.tar
 wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
 yum update
@@ -36,6 +36,7 @@ chkconfig --level 345 mysqld on
 # are granted that would be useful for most applications. See the documentation
 # http://dev.mysql.com/doc/refman/5.7/en/grant.html for all of the available grants
 # use of mysql -Bse described here: http://stackoverflow.com/questions/7159727/delete-mysql-table-data-bash-script
+echo "configuring database, user and permissions"
 mysql -Bse "create database if not exists ${database};"
 mysql -Bse "create user ${database_user}@'%' identified by '${database_password}';"
 mysql -Bse "grant SELECT, INSERT, DELETE, UPDATE, CREATE TEMPORARY TABLES, EXECUTE on ${database}.* to ${database_user}@'%' identified by '${database_password}';"
@@ -45,6 +46,7 @@ mysql -Bse "grant SELECT, INSERT, DELETE, UPDATE, CREATE TEMPORARY TABLES, EXECU
 ###############################
 #Automatic mysql_secure_installation
 #https://gist.github.com/enoch85/9cf2389df2b14569f063
+echo "installing expect library"
 yum -y install expect
 SECURE_MYSQL=$(expect -c "
 set timeout 10
@@ -65,4 +67,5 @@ expect \"Reload privilege tables now?\"
 send \"y\r\"
 expect eof
 ")
+echo "running mysql secure installation"
 echo "$SECURE_MYSQL"
