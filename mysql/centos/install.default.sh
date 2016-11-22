@@ -35,6 +35,7 @@ chkconfig --level 345 mysqld on
 # Create a basic database with a user and password. Only basic permissions
 # are granted that would be useful for most applications. See the documentation
 # http://dev.mysql.com/doc/refman/5.7/en/grant.html for all of the available grants
+# use of mysql -Bse described here: http://stackoverflow.com/questions/7159727/delete-mysql-table-data-bash-script
 mysql -Bse "create database if not exists ${database};"
 mysql -Bse "create user ${database_user}@'%' identified by '${database_password}';"
 mysql -Bse "grant SELECT, INSERT, DELETE, UPDATE, CREATE TEMPORARY TABLES, EXECUTE on ${database}.* to ${database_user}@'%' identified by '${database_password}';"
