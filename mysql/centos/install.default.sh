@@ -1,5 +1,5 @@
 #!/bin/bash
-# description: A basic secure MySQL 5.6.34, for Linux (x86_64) installation with user and database.
+# description: A basic secure MySQL installation with user and database.
 # operating_systems: CentOS
 # tags: MySQL,CentOS,CentOS7
 # packages: MySQL,Expect
@@ -21,6 +21,7 @@ database_password='CHANGE_ME'
 ## INSTALL MYSQL FROM MySQL REPO ##
 ###################################
 yum clean all
+https://downloads.mysql.com/archives/get/file/mysql-5.7.15-1.el7.x86_64.rpm-bundle.tar
 wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 rpm -ivh mysql-community-release-el7-5.noarch.rpm
 yum update
@@ -31,6 +32,9 @@ chkconfig --level 345 mysqld on
 ####################
 ## DATABASE SETUP ##
 ####################
+# Create a basic database with a user and password. Only basic permissions
+# are granted that would be useful for most applications. See the documentation
+# http://dev.mysql.com/doc/refman/5.7/en/grant.html for all of the available grants
 mysql -Bse "create database if not exists ${database};"
 mysql -Bse "create user ${database_user}@'%' identified by '${database_password}';"
 mysql -Bse "grant SELECT, INSERT, DELETE, UPDATE, CREATE TEMPORARY TABLES, EXECUTE on ${database}.* to ${database_user}@'%' identified by '${database_password}';"
