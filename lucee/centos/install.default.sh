@@ -1,11 +1,17 @@
 #!/bin/bash
-# Description: Lucee Server with Apache, Git and Haveged
+# Name: Lucee Server with Apache, Git and Haveged
+# Summary: A Lucee 4.5 web application with Apache reverse proxy. 
+  # Includes a git installation for deploying a code repository. 
+  # Haveged is deployed to provide enough entropy for DigitalOCean virtual machines
 # operating_systems: CentOS
 # Tags: Lucee,Apache,Apache2,git,haveged,centos7
 # created: 11/21/2016
 # last_updated: 11/21/2016
-# packages: Lucee,Apache,Git,Haveged
-# variables: server_name, git_repo, lucee_pass, use_git_credentials, git_host, git_user, git_password
+# os_packages: httpd,git,haveged
+# installers: [Lucee](http://cdn.lucee.org/downloader.cfm/id/143/file/lucee-4.5.2.018-pl0-linux-x64-installer.run)
+# references: 
+   # [How to Setup Haveged](https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged)
+   # [Setting up Git for Submodule Authentication](https://confluence.atlassian.com/bitbucketserver/permanently-authenticating-with-git-repositories-776639846.html)
 # $server_name: The name of the server used by Apache configuration
 # $git_repo: The git repo address to pull down the Lucee application files.
 # $lucee_pass: The Lucee Administrator Password
