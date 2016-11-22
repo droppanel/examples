@@ -1,5 +1,5 @@
 #!/bin/bash
-# description: A basic secure MySQL installation with user and database.
+# description: A basic secure MySQL 5.6.34, for Linux (x86_64) installation with user and database.
 # operating_systems: CentOS
 # tags: MySQL,CentOS,CentOS7
 # packages: MySQL,Expect
