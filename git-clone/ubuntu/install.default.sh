@@ -21,7 +21,7 @@ directory='.'
 ####################
 ## Installing Git ##
 ####################
-sudo apt-get install -y git
+sudo apt-get install -y git-core
 
 
 ########################

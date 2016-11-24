@@ -38,7 +38,7 @@ yum -y install nodejs
 ## Installing And Setting Up Git ##
 ###################################
 echo "# Installing Git"
-yum -y install git
+yum -y install git-core
 
 echo "# Clonning repository"
 git clone $repository app

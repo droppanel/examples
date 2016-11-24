@@ -21,7 +21,7 @@ directory='.'
 ####################
 ## Installing Git ##
 ####################
-yum install -y git
+yum install -y git-core
 
 
 ########################

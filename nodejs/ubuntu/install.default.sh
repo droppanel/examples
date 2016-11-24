@@ -45,7 +45,7 @@ sudo ln -s `which nodejs` /usr/bin/node
 ## Installing And Setting Up Git ##
 ###################################
 echo "# Installing git"
-sudo apt-get install git
+sudo apt-get install git-core
 
 echo "# Clone repository"
 git clone $repository app
