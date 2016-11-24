@@ -1,10 +1,11 @@
 #!/bin/bash
-# description: A basic Mongodb installation
+# name: A basic Mongodb installation
 # operating_systems: Ubuntu 16.04
 # tags: MongoDB,Ubuntu
 # packages: MongoDB
 # created: 11/22/2016
 # last_updated: 11/22/2016
+# references: [Installing MongoDB](https://docs.mongodb.com/v3.2/tutorial/install-mongodb-on-ubuntu/)
 
 
 ########################################

@@ -1,11 +1,15 @@
 #!/bin/bash
-# description: A basic NodeJs installation
+# name: A basic NodeJs installation
+# summary:
+  # A NodeJs 6.x web application with PM2 for background execution
+  # Includes git installation for the use of a github repository
+  # And port forwarding to send trafic to port 80 regardless of used port in app
 # operating_systems: CentOS
 # tags: NodeJs,CentOS
-# packages: NodeJs,Git
+# packages: nodejs,git
 # created: 11/21/2016
 # last_updated: 11/21/2016
-# variables: repository, host, IP, PORT
+# references: [Redirecting Port 80 to App port](http://stackoverflow.com/a/16573737)
 # $repository: The Github repository
 # $host: The hostname
 # $IP: The host preceded with 'http'
