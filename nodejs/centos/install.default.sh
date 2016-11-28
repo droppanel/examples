@@ -4,8 +4,8 @@
   # A NodeJs 6.x web application with PM2 for background execution
   # Includes git installation for the use of a github repository
   # And port forwarding to send trafic to port 80 regardless of used port in app
-# operating_systems: Ubuntu
-# tags: NodeJs,Ubuntu
+# operating_systems: CentOS
+# tags: NodeJs,CentOS
 # packages: nodejs,git
 # created: 11/21/2016
 # last_updated: 11/21/2016
@@ -27,27 +27,20 @@ PORT=8080
 #######################
 ## Installing NodeJS ##
 #######################
-echo "# Getting Node source"
-cd ~
-curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
+echo "# Adding ERPL for NodeJs"
+curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
 
-echo "# Adding PPAP"
-sudo bash nodesource_setup.sh
-
-echo "# Installing nodejs/npm"
-sudo apt-get install nodejs
-
-echo "# Linking nodejs to node command"
-sudo ln -s `which nodejs` /usr/bin/node
+echo "# Installing nodejs"
+yum -y install nodejs
 
 
 ###################################
 ## Installing And Setting Up Git ##
 ###################################
-echo "# Installing git"
-sudo apt-get install git-core
+echo "# Installing Git"
+yum -y install git-core
 
-echo "# Clone repository"
+echo "# Clonning repository"
 git clone $repository app
 
 echo "# Enter repo folder"
@@ -62,23 +55,16 @@ npm install
 
 # Installing a Process Manager to keep node alive in the background
 echo "# Installing PM2"
-sudo npm install pm2@latest -g
+npm install pm2@latest -g
 
 
 ##############################################
 ## Redirecting trafic from $PORT to port 80 ##
 ##############################################
-# Commenting exit on rc.local so we can set the iptables prerouting
-echo "# Commenting exit on rc.local"
-sudo sed -i '14 s/^/#/ ' /etc/rc.local  
-
-# Setting ip tables to redirect from port $PORT to port 80
 echo "# Setting port $PORT to port 80"
-sudo iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
-sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port $PORT
-
-# Updating /etc/rc.local to add the iptables change
-echo "iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port $PORT" >> /etc/rc.local
+iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT
+iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port $PORT
+iptables-save > /etc/sysconfig/iptables
 
 
 ####################
