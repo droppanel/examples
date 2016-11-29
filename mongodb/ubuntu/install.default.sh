@@ -44,7 +44,7 @@ echo "Group=mongodb"                                                          >>
 echo "ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf"            >> /lib/systemd/system/mongod.service
 echo ""                                                                       >> /lib/systemd/system/mongod.service
 echo "[Install]"                                                              >> /lib/systemd/system/mongod.service
-echo "WantedBy=multi-user.target"
+echo "WantedBy=multi-user.target"                                             >> /lib/systemd/system/mongod.service
 
 echo "# Starting mongod service"
 sudo service mongod start
