@@ -26,14 +26,29 @@ sudo apt-get install -y php7.0-mysql php7.0-curl php7.0-json php7.0-cgi  php7.0 
 sudo a2dismod php5
 sudo a2enmod php7.0
 
-#echo "# Clone repository"
-#git clone $repository /var/www/html
-sudo echo "<?php" >> /var/www/html/index.php
-sudo echo "phpinfo()" >> /var/www/html/index.php
-sudo echo "?>" >> /var/www/html/index.php
+echo "# Creating app virtual host"
+sudo mkdir /var/www/app
+sudo mkdir /var/www/app/public_html
+sudo echo "<?php" >> /var/www/app/public_html/index.php
+sudo echo "phpinfo()" >> /var/www/app/public_html/index.php
+sudo echo "?>" >> /var/www/app/public_html/index.php
+
+echo "# Creating file to recognize host"
+sudo echo "<VirtualHost *:80>" >> /etc/apache2/sites-available/app.conf
+sudo echo "  ServerAdmin admin@app" >> /etc/apache2/sites-available/app.conf
+sudo echo "  ServerAlias app" >> /etc/apache2/sites-available/app.conf
+sudo echo "  DocumentRoot /var/www/app/public_html" >> /etc/apache2/sites-available/app.conf
+sudo echo "  ErrorLog ${APACHE_LOG_DIR}/error.log" >> /etc/apache2/sites-available/app.conf
+sudo echo "  CustomLog ${APACHE_LOG_DIR}/access.log combined" >> /etc/apache2/sites-available/app.conf
+sudo echo "</VirtualHost>" >> /etc/apache2/sites-available/app.conf
+sudo a2ensite app.conf
 
 #######################
 ## Restarting Apache ##
 #######################
 echo "# Restarting Service post-php setup"
+sudo systemctl reload apache2
 sudo systemctl restart apache2
+
+source /etc/apache2/envvars
+/usr/sbin/apache2 -D DUMP_VHOSTS
