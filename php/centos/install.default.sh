@@ -9,6 +9,12 @@
 # created: 11/24/2016
 # last_updated: 11/24/2016
 
+########################
+## Readonly Variables ##
+########################
+host=`hostname -I | awk '{print $1}'`
+IP="http://$host"
+
 ####################################
 ## Setting up repository for PHP7 ##
 ####################################
@@ -52,3 +58,9 @@ firewall-cmd --reload
 #######################
 echo "# Restarting Service post-php setup"
 systemctl restart httpd.service
+
+##################
+## Printing URL ##
+##################
+echo "You can now enter $IP/index.php"
+echo "To see PHP Info"
