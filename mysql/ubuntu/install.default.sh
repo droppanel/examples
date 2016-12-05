@@ -21,8 +21,11 @@ mysql_password='test'
 ###################################
 ## INSTALL MYSQL FROM MySQL REPO ##
 ###################################
+# Install non-interactively to avoid lock when asking for password
+# http://stackoverflow.com/a/7740393
 echo "installing mysql"
-sudo apt-get install -y mysql-server
+export DEBIAN_FRONTEND=noninteractive
+sudo -E apt-get -q -y install mysql-server
 sudo systemctl mysql start
 
 ####################
@@ -47,7 +50,7 @@ sudo apt-get install -y expect
 SECURE_MYSQL=$(expect -c "
 set timeout 10
 spawn mysql_secure_installation
-expect \"Enter current password for root (enter for none):\"
+expect \"Enter current password for root:\"
 send \"\r\"
 expect \"Set root password?\"
 send \"y\r\" 
