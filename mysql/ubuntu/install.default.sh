@@ -13,10 +13,10 @@
 ####################
 ## USER VARIABLES ##
 ####################
-database='test'
-database_user='test'
-database_password='test'
-mysql_password='test'
+database='CHANGE_ME'
+database_user='CHANGE_ME'
+database_password='CHANGE_ME'
+mysql_root_password='CHANGE_ME'
 
 ###################################
 ## INSTALL MYSQL FROM MySQL REPO ##
@@ -55,9 +55,9 @@ send \"\r\"
 expect \"Set root password?\"
 send \"y\r\" 
 expect \"New password:\"
-send \"$mysql_password\r\"
+send \"$mysql_root_password\r\"
 expect \"Re-enter password:\"
-send \"$mysql_password\r\"
+send \"$mysql_root_password\r\"
 expect \"Remove anonymous users?\"
 send \"y\r\"
 expect \"Disallow root login remotely?\"
