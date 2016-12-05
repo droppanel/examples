@@ -3,8 +3,8 @@
 # summary:
   # Installs an Apache Server
   # With PHP
-# operative_systems: Ubuntu
-# tags: php,ubuntu,apache
+# operative_systems: CentOS
+# tags: php,centos,apache
 # packages: php70w,httpd
 # created: 11/24/2016
 # last_updated: 11/24/2016
